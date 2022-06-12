@@ -54,7 +54,7 @@ const VerificationPage = () => {
           </p>
 
           {/*<h4>{location.state.code}</h4>*/}
-          <h4>{location.state.code}</h4>
+          
 
           <input
             className='input'

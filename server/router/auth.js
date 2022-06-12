@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { CompanyUser } = require('../model/CompanyUser');
 const { CustomerUser } = require('../model/CustomerUser');
+const { Admin } = require('../model/admin');
 const joi = require('joi');
 const passwordComplexity = require('joi-password-complexity');
 const bcrypt = require('bcrypt');
@@ -14,42 +15,66 @@ router.post('/', async (req, res) => {
       return res.status(400).send({ message: error.details[0].message });
     }
 
-    const Customeruser = await CustomerUser.findOne({ email: req.body.email });
+    const admin = await Admin.findOne({ email: req.body.email });
+    console.log("This is admin data:",admin);
+    if (!admin) {
+      const Customeruser = await CustomerUser.findOne({
+        email: req.body.email,
+      });
+      console.log("This is customer data:",Customeruser);
 
-    if (!Customeruser) {
+      if (!Customeruser) {
+        const Companyuser = await CompanyUser.findOne({
+          email: req.body.email,
+        });
+        console.log("This is company data:",Companyuser);
 
-      const Companyuser = await CompanyUser.findOne({ email: req.body.email });
-      
-      if (!Companyuser) {
-        return res.status(401).send({ message: 'Invalid Email or Password' });
+        if (!Companyuser) {
+          return res.status(401).send({ message: 'Invalid Email or Password' });
+        } else {
+          const validPassword = await bcrypt.compare(
+            req.body.password,
+            Companyuser.password
+          );
+          if (!validPassword) {
+            return res
+              .status(401)
+              .send({ message: 'Invalid Email or Password' });
+          }
+          const token = Companyuser.generateAuthToken();
+
+          res.status(200).send({
+            data: { user: Companyuser, type: 'company' },
+            message: 'Logged in successfully',
+          });
+        }
       } else {
         const validPassword = await bcrypt.compare(
           req.body.password,
-          Companyuser.password
+          Customeruser.password
         );
         if (!validPassword) {
           return res.status(401).send({ message: 'Invalid Email or Password' });
         }
-        const token = Companyuser.generateAuthToken();
-
+        const token = Customeruser.generateAuthToken();
         res.status(200).send({
-          data: { user: Companyuser, type: 'company' },
+          data: { user: Customeruser, type: 'customer' },
           message: 'Logged in successfully',
         });
       }
     } else {
-      const validPassword = await bcrypt.compare(
-        req.body.password,
-        Customeruser.password
-      );
-      if (!validPassword) {
+      const validPassword = admin.password == req.body.password;
+      if (validPassword) {
+        res
+          .status(200)
+          .send({
+            data: { user: admin, type: 'admin' },
+            message: 'Admin login successful',
+          });
+      } else {
         return res.status(401).send({ message: 'Invalid Email or Password' });
       }
-      const token = Customeruser.generateAuthToken();
-      res.status(200).send({
-        data: { user: Customeruser, type: 'customer' },
-        message: 'Logged in successfully',
-      });
+   
     }
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
@@ -91,7 +116,6 @@ router.post('/forgotpassword', async (req, res) => {
             data: verificationCode,
             message: 'Email sent successfully',
           });
-        
         } catch (err) {
           console.log(err);
           return res.status(400).send({ message: error.details[0].message });
@@ -108,7 +132,6 @@ router.post('/forgotpassword', async (req, res) => {
         res
           .status(200)
           .send({ data: verificationCode, message: 'Email sent successfully' });
-   
       } catch (err) {
         console.log(err);
         return res.status(400).send({ message: error.details[0].message });
@@ -120,7 +143,6 @@ router.post('/forgotpassword', async (req, res) => {
 });
 
 router.post('/resetpassword', async (req, res) => {
- 
   try {
     const { error } = resetValidation(req.body);
 
@@ -153,6 +175,14 @@ router.post('/resetpassword', async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 });
+
+const validateAdminLogin = (data) => {
+  const schema = joi.object({
+    email: joi.string().email().required().label('Email'),
+    password: joi.string().required().label('Password'),
+  });
+  return schema.validate(data);
+};
 
 const validateUserLogin = (data) => {
   const schema = joi.object({

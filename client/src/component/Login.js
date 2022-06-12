@@ -36,9 +36,11 @@ const Login = () => {
       );
       console.log('response form server', res.data);
       localStorage.setItem('token', JSON.stringify(res.data));
-      if (res.data.data.type == 'company') {
+      if (res.data.data.type == 'admin') {
+        window.location = '/adminportal';
+      } else if(res.data.data.type == 'company'){
         window.location = '/companyhome';
-      } else {
+      }else{
         window.location = '/customerhome';
       }
 
