@@ -7,6 +7,7 @@ const UserLogin = require('./router/auth');
 const UserRegister = require('./router/user');
 const CompanyOrder = require('./router/CompanyOrder');
 const AllOrders = require('./router/AllOrders');
+const allUsers = require('./router/AllUser');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/api/register',UserRegister);
 app.use('/api/login',UserLogin);
 app.use('/api/companyorder',CompanyOrder);
 app.use('/api/allorders',AllOrders);
+app.use('/api/users',allUsers);
 
 const PORT=process.env.PORT || 5000;
 

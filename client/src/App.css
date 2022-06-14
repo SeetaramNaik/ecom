@@ -208,4 +208,34 @@
   }
 }
 
+.admin-nav{
+  background-color: #3caa8d;
+  display:flex;
+  justify-content:space-between;
+}
 
+.cust-list{
+  color: #fff;
+  margin:10px;
+}
+
+.comp-list{
+  color: #fff;
+  margin: 10px;
+}
+.adm-txt>h3{
+  font-weight: 1000;
+  margin:20px;
+}
+.nav-btns{
+  display: flex;
+  margin-top:10px;
+  margin-right: 10px;
+}
+/* .comp-list,
+.cust-list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
