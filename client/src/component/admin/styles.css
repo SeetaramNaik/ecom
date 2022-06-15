@@ -1,0 +1,29 @@
+.all-cust-detail,
+.all-comp-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 10px;
+  flex-wrap: wrap;
+}
+
+.customer-detail,
+.company-detail {
+  background-color: rgb(101, 97, 97);
+  color: rgb(195, 190, 190);
+  margin: 10px;
+  padding: 20px;
+  border-radius: 30px;
+}
+.fields {
+  color: #fff;
+}
+.adm-txt > h3 {
+  font-weight: 1000;
+  margin: 20px;
+  color: #000;
+}
+.adm-txt>h3:hover{
+    text-decoration: none;
+}

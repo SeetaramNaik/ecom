@@ -35,6 +35,8 @@ router.post('/customerregister', async (req, res) => {
       return res.status(400).send({ message: error.details[0].message });
     }
 
+    console.log(req.body);
+
     const user = await CustomerUser.findOne({ email: req.body.email });
 
     if (user) {
