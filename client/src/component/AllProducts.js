@@ -2,7 +2,7 @@ import React from 'react';    //fdgdfgd
 import styles from './styles.module.css';
 import '../App.css';
 const ProductCard = ({ product }) => {
-  const { _id, itemname, itemquantity, itemprice, expecteddate } = product;
+  const { _id, itemname, itemquantity,quantity_measure, itemprice, expecteddate } = product;
 
   var date1 = new Date('06/30/2019');
 
@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
         <span className={styles.quantity}>{itemname.toUpperCase()}</span>
       </h5>
       <h5 className='card-title'>
-        Quantity: <span className={styles.quantity}>{itemquantity}</span>
+        Quantity: <span className={styles.quantity}>{itemquantity} {quantity_measure}</span>
       </h5>
       <h5 className='card-title'>
         ₹<span className={styles.price}>{itemprice}</span>/item

@@ -44,6 +44,16 @@ router.get('/:id', async (req, res) => {
   return res.status(400).send({ message: "You haven't order anything yet" });
 });
 
+router.get('/individualorder/:id', async (req, res) => {
+  const orders = await CompanyOrder.find({ _id: req.params.id });
+  if (orders) {
+    return res
+      .status(200)
+      .send({ data: orders, message: 'Your orders are sent' });
+  }
+  return res.status(400).send({ message: "You haven't order anything yet" });
+});
+
 router.delete('/:id', async (req, res) => {
 
   try {
@@ -53,5 +63,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 });
+
+
 
 module.exports = router;

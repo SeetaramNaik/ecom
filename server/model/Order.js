@@ -7,6 +7,7 @@ const orderSchema = new mongoose.Schema({
   itemquantity: { type: Number, required: true },
   quantity_measure: { type: String, required: true },
   itemprice: { type: Number, required: true },
+  verified : {type : String, default: 'no'},
   expecteddate: { type: String, required: true },
   currentdate: { type: Date, required: true },
 });
