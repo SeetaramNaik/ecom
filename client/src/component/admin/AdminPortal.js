@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './styles.module.css';
-import '../App.css';
-import AllProducts from '.././component/admin/AllProducts';
-import UpdateProdCard from './admin/UpdateProdCard';
+import styles from '../styles.module.css';
+import '../../App.css';
+import AllProducts from './AllProducts';
+import UpdateProdCard from './UpdateProdCard';
 import axios from 'axios';
 
 const AdminPortal = () => {

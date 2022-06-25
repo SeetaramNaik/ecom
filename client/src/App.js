@@ -7,9 +7,10 @@ import CustomerHome from './component/CustomerHome';
 import ForgotPassword from './component/ForgotPassword';
 import ResetPassword from './component/ResetPassword';
 import VerificationPage from './component/VerificationPage';
-import AdminPortal from './component/AdminPortal';
+import AdminPortal from './component/admin/AdminPortal';
 import CustomerList from './component/admin/CustomerList';
 import CompanyList from './component/admin/CompanyList';
+import SingleProduct from './component/admin/SingleProduct';
 import { Routes, Route, Navigate } from 'react-router-dom';
 //import { Admin } from '../../server/model/admin';
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/adminportal' exact element={<AdminPortal/>} />
         <Route path='/customerlist' exact element={<CustomerList/>}/>
         <Route path='/companylist' exact element={<CompanyList/>}/>
+        <Route path='/single-product' exact element={<SingleProduct/>}/>
         <Route path='/' element={<Navigate replace to='/login' />} />
       </Routes>
     </div>

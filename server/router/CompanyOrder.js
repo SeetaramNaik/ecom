@@ -55,7 +55,6 @@ router.get('/individualorder/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-
   try {
     const item = await CompanyOrder.findByIdAndDelete(req.params.id, req.body);
     res.status(200).send({ message: 'Successfully deleted' });
@@ -64,6 +63,16 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-
+router.post('/updateprice/:id', async (req, res) => {
+  try {
+    const item = await CompanyOrder.findByIdAndUpdate(req.params.id, {
+      newprice: req.body.newprice,
+      verified:'yes'
+    });
+    res.status(200).send({ message: 'Commission added' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error' });
+  }
+});
 
 module.exports = router;
