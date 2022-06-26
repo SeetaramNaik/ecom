@@ -52,8 +52,9 @@ const AllProducts = ({ product, getItemData }) => {
         </span>
       </h5>
       <h5 className='card-title'>
-        ₹<span className={styles.price}>{newprice}</span>/item
+        ₹<span className={styles.price}>{itemprice}</span>+<span className={styles.price}>{newprice-itemprice}</span>
       </h5>
+      <h5 className='card-title'>Total: ₹<span className={styles.price}>{newprice}</span></h5>
       <h5 className='card-text'>{daysLeft(expecteddate)} Days left</h5>
    
       <Link to='/single-product' state={{ from: product }}>

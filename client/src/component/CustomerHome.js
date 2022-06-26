@@ -35,7 +35,9 @@ const CustomerHome = () => {
         </div>
       </nav>
       <div className='home_container_prod'>
-        {item.map((items, index) => (
+        {item
+          .filter(items=>items.verified=='yes')
+          .map((items, index) => (
           <AllProducts key={index} product={items} />
         ))}
       </div>

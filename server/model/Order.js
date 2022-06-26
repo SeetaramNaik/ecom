@@ -27,4 +27,20 @@ const validateOrder = (data) => {
   return schema.validate(data);
 };
 
+const deleteData = async()=>{
+  // const alldata=await CompanyOrder.find();
+  // var expecteddate=alldata.expecteddate;
+  // var currentdate=alldata.currentdate;
+  // var Difference_In_Time = expecteddate - currentdate;
+  // var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  // var date = Math.round(Difference_In_Days);
+  // console.log(Difference_In_Days);
+  // const alldata=await CompanyOrder.find({field: {$lte: value}});
+  var currentdate= new Date().toISOString();
+  
+  const data=await CompanyOrder.deleteMany( { expecteddate: { $lt: currentdate } } );
+  
+}
+deleteData();
+
 module.exports = { CompanyOrder, validateOrder };

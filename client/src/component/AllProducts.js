@@ -2,7 +2,7 @@ import React from 'react';    //fdgdfgd
 import styles from './styles.module.css';
 import '../App.css';
 const ProductCard = ({ product }) => {
-  const { _id, itemname, itemquantity,quantity_measure, itemprice, expecteddate } = product;
+  const { _id, itemname, itemquantity,quantity_measure, itemprice,newprice, expecteddate } = product;
 
   var date1 = new Date('06/30/2019');
 
@@ -28,7 +28,7 @@ const ProductCard = ({ product }) => {
         Quantity: <span className={styles.quantity}>{itemquantity} {quantity_measure}</span>
       </h5>
       <h5 className='card-title'>
-        ₹<span className={styles.price}>{itemprice}</span>/item
+        ₹<span className={styles.price}>{newprice}</span>/item
       </h5>
       <h5 className='card-text'>{daysLeft(expecteddate)} Days left</h5>
       <button className='btn mt-3 item-btn'>Sell</button>
