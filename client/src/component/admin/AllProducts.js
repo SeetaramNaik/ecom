@@ -16,6 +16,7 @@ const AllProducts = ({ product, getItemData }) => {
     itemquantity,
     quantity_measure,
     itemprice,
+    newprice,
     expecteddate,
     verified,
   } = product;
@@ -51,7 +52,7 @@ const AllProducts = ({ product, getItemData }) => {
         </span>
       </h5>
       <h5 className='card-title'>
-        ₹<span className={styles.price}>{itemprice}</span>/item
+        ₹<span className={styles.price}>{newprice}</span>/item
       </h5>
       <h5 className='card-text'>{daysLeft(expecteddate)} Days left</h5>
    

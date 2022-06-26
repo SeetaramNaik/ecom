@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import './styles.css';
 import axios from 'axios';
 
 const SingleProduct = () => {
   const { REACT_APP_BASE_URL } = process.env;
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const location = useLocation();
@@ -19,32 +20,40 @@ const SingleProduct = () => {
     expecteddate,
   } = from;
 
+  // const [newPrice,setNewPrice] = useState(itemprice);
+
+  // const [commission,setCommission]= useState({commissionprice:0});
   const [newPrice, setNewPrice] = useState({
-    newprice: 0,
-    // _id: _id,
+    currentprice: itemprice,
+    commission: 0,
   });
+
   var name = useremail.substring(0, useremail.lastIndexOf('@'));
 
   const handleChange = (e) => {
-    setNewPrice({ ...newPrice, [e.target.name]: parseInt(e.target.value)+parseInt({itemprice}) });
+    setNewPrice({ ...newPrice, commission: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var input = document.forms['form']['newprice'].value;
-    if (newPrice.newprice <= 0) {
+    if (newPrice.commission <= 0) {
+      console.log('Current Item price', itemprice);
+      console.log('New price:', newPrice);
+
       setError("You've not entered any commission price");
       setTimeout(() => {
         setError('');
       }, 3000);
     } else {
       try {
+
         const config = {
           headers: {
             'Content-Type': 'application/json',
           },
         };
         const body = JSON.stringify(newPrice);
+        console.log('Body', body);
         const response = await axios.post(
           `${REACT_APP_BASE_URL}/api/companyorder/updateprice/${_id}`,
           body,
@@ -52,10 +61,11 @@ const SingleProduct = () => {
         );
         if (response.status === 200) {
           document.getElementById('price-field').reset();
-          newPrice.newprice=0;
+     
           setSuccess(response.data.message);
           setTimeout(() => {
             setSuccess('');
+            navigate('/adminportal');
           }, 3000);
         }
       } catch (error) {
@@ -75,7 +85,12 @@ const SingleProduct = () => {
   };
 
   return (
-    <form className='single-prod' name='form' id='price-field' onSubmit={handleSubmit}>
+    <form
+      className='single-prod'
+      name='form'
+      id='price-field'
+      onSubmit={handleSubmit}
+    >
       {error && <div className='error_msg'>{error}</div>}
       {success && <div className='success_msg'>{success}</div>}
 
@@ -99,9 +114,9 @@ const SingleProduct = () => {
       </h4>
       <input
         type='number'
-        name='newprice'
+        name='commissionprice'
         onChange={handleChange}
-        className='form-control input'
+        className='form-control price-input'
         placeholder='Enter the commission'
       />
       <input type='submit' className='btn-success btn' value='Update price' />

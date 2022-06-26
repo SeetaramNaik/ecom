@@ -48,17 +48,17 @@ const AdminPortal = () => {
   const getIndividualItemData = async (e) => {
     setId(e.target.name);
    
-    console.log('This is button ID:',e.target.name);
-    console.log('This is state ID:',id);
+    // console.log('This is button ID:',e.target.name);
+    // console.log('This is state ID:',id);
  
     try {
       const res = await axios.get(
         `${REACT_APP_BASE_URL}/api/companyorder/individualorder/${e.target.name}`
       );
-      console.log('This is server data', res.data.data);
+      // console.log('This is server data', res.data.data);
       setIndividualItem(res.data.data);
       setModal(true);
-      console.log('This is state data:', individualItem);
+      // console.log('This is state data:', individualItem);
     } catch (err) {
       if (
         error.response &&
@@ -72,7 +72,7 @@ const AdminPortal = () => {
       }, 3000);
     }
   };
-  console.log('This is modal:',modal);
+  // console.log('This is modal:',modal);
 
   return (
     <div className='adminportal'>

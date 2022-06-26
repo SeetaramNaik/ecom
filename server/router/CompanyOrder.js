@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
     }
     const data = await CompanyOrder({
       ...req.body,
+      newprice:req.body.itemprice,
       currentdate: Date.now(),
     }).save();
     return res
@@ -65,8 +66,12 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/updateprice/:id', async (req, res) => {
   try {
+    console.log("Incoming price:",req.body);
+    const currentprice=req.body.currentprice;
+    const commission = req.body.commission;
+    const total= currentprice+Number(commission);
     const item = await CompanyOrder.findByIdAndUpdate(req.params.id, {
-      newprice: req.body.newprice,
+      newprice: total,
       verified:'yes'
     });
     res.status(200).send({ message: 'Commission added' });

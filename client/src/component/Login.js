@@ -104,7 +104,7 @@ const Login = () => {
                 required
                 placeholder='Password'
               />
-              <div class='input-group-prepend px-2'>
+              <div className='input-group-prepend px-2'>
                 <span
                   className='py-2 px-2 input'
                   type='button'
