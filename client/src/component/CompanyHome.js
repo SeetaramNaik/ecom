@@ -150,6 +150,7 @@ const CompanyHome = () => {
           id='orderInputs'
           onSubmit={handleOrderSubmit}
         >
+          {/*
           <input
             className='form-control my-2 input'
             name='itemname'
@@ -157,7 +158,23 @@ const CompanyHome = () => {
             placeholder='Enter Item Name'
             onChange={handleChange}
             required
-          />
+  />*/}
+
+          <select
+            className='form-control col-sm-12 my-2'
+            onChange={handleChange}
+            name='itemname'
+            required
+          >
+            <option disabled selected>
+              Choose spice
+            </option>
+            <option value='Black Pepper'>Black Pepper</option>
+            <option value='White Pepper'>White Pepper</option>
+            <option value='Cinnamon'>Cinnamon</option>
+            <option value='Cloves'>Cloves</option>
+            <option value='Garam Masala'>Garam Masala</option>
+          </select>
           <div className='row col-sm-12'>
             <input
               className='form-control col-sm-8 my-2 mx-2 input'
